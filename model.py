@@ -17,10 +17,11 @@ tests = int(sys.argv[1])
 
 makespanlist = [[] for _ in range(16)]
 avgRespTimeList = [[] for _ in range(16)]
+avgmakespanList = [[] for _ in range(16)]
 
 #f = open('/repo/ebevikt/masterthesis/paretoBench','r')
-f = open('/home/viktor/Documents/schModel/paretoBench','r')
-f = open('/home/viktor/Documents/schModel/testBench','r')
+f = open('paretoBench','r')
+f = open('testBench','r')
 queueception = f.readlines()
 f.close()
 
@@ -29,14 +30,14 @@ for yy in range(tests):
     
     sys.stdout.write('\r'+str(yy+1))
     sys.stdout.flush()
+    
     # init
-    for ex in range(2,5):
+    for ex in range(2,3):
 
         nmbrOfNodes = 2
         nmbrOfSlots = ex
         
         queue = list(map(int,queueception[yy][1:-2].split(',')))
-
 
         # avg makespan shit
 
@@ -61,6 +62,8 @@ for yy in range(tests):
             ii = ii + 1
 
         queue = que
+
+        #queue = [(0,100),(1,100),(2,200),(3,300),(1,300)]
 
         if sys.argv[2] == 'LJF':
         #print(queue)
@@ -101,9 +104,9 @@ for yy in range(tests):
             q4 = sorted(queue[x*3:x*4], key=lambda tup: tup[1])
             queue = q1 + q2 + q3 + q4
 
-        print(queue)
-
         nodes = []
+
+        print(queue)
 
         for i in range(nmbrOfNodes):
             nodes.append([[] for _ in range(nmbrOfSlots)])
@@ -115,6 +118,8 @@ for yy in range(tests):
         avgRespTimes = []
         for i in range(nmbrOfNodes):
             avgRespTimes.append( [[0] for _ in range(nmbrOfSlots)] )
+
+        print(avgRespTimes)
 
         avgmakespan = [0,0,0,0]
 
@@ -184,15 +189,20 @@ for yy in range(tests):
                         if slot != []:
                             deltaMoved = True
 
+                            #print('\n--slot: '+ str(slot[0]) +'\n')
 
                             slot[0] = slot[0] - delta/slowdown[heavyjobs]
 
+
+                            #print('\nnodeCounter: ' + str(nodeCounter) + ' '  + 'slotCounter: ' + str(slotCounter)+'\n')
+                            #print(str(avgRespTimes[nodeCounter][slotCounter][-1]))
                             avgRespTimes[nodeCounter][slotCounter][-1] += delta
 
 
 
 
                             if slot[0] <= 0:
+                                #print('----change job -----')
                                 maxVal = avgRespTimes[nodeCounter][slotCounter][-1]
                                 # avg makespan shit
                                 if slot[2] == 0 and maxVal > avgmakespan[0]:
@@ -208,10 +218,12 @@ for yy in range(tests):
                                 slot.pop()
                                 slot.pop()
 
-                                avgRespTimes[nodeCounter][slotCounter].append(avgRespTimes[nodeCounter][slotCounter][-1])
+                                # will add one extra, remove in the end.
+                                avgRespTimes[nodeCounter][slotCounter].append(maxVal)
                             else:
                                 slotTaken = True
 
+                        slotCounter += 1
 
                     if deltaMoved: 
                         makespan[nodeCounter] += delta
@@ -219,10 +231,44 @@ for yy in range(tests):
                     nodeCounter += 1
         makespanlist[ex].append(max(makespan))
         avgRespTimeList[ex].append(avgRespTimes)
+        avgmakespanList[ex].append(avgmakespan)
 
+print(makespanlist)
+print('-------------------\n')
+print(avgRespTimeList)        #avgmakespan[]
+print(avgmakespanList)
 
-        #avgmakespan[]
+xx = 0
+for i in avgmakespanList[2][0]:
+    xx += i
 
+print(xx/4)
+
+# Calculate avgRespTimes and insert into files
+print('--------')
+
+exeNum = 0
+for exList in avgRespTimeList:
+    print(exList)
+    if exList != []:
+        f = open('./results/'+ sys.argv[2] + '_avgRespTime_' + str(exeNum),'w')
+        for i in exList: # exList: list of tests for an exec
+            avgRes = 0
+            for ii in i: #i: one test
+                for iii in ii: #node
+                    for iiii in iii[:-1]: # slot, last one is doubled
+
+                        avgRes += iiii
+                avgRes = avgRes / 100
+            f.write(str(avgRes)+'\n')
+        f.close()
+        print(exeNum)
+    exeNum += 1
+
+print(avgRes)
+
+#avgResp variance:
+    
 #mha makespanlist får man enkelt variansen.
 
 #Representera avgRespTime med en lista.
