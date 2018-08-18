@@ -238,34 +238,50 @@ print('-------------------\n')
 print(avgRespTimeList)        #avgmakespan[]
 print(avgmakespanList)
 
-xx = 0
-for i in avgmakespanList[2][0]:
-    xx += i
 
-print(xx/4)
+#Calculate makespans and insert into files
 
-# Calculate avgRespTimes and insert into files
-print('--------')
+exeNum = 0
+for exList in makespanlist:
+    if exList != []:
+        f = open('./results/'+ sys.argv[2] + '_makespans_' + str(exeNum),'w')
+        for test in exList:
+            f.write(str(test)+'\n')
+        f.close()
+    exeNum += 1
+
+# Calculate average makespans and insert into files 
+
+exeNum = 0
+for exList in avgmakespanList:
+    if exList != []:
+        f = open('./results/'+ sys.argv[2] + '_avgMakespan_' + str(exeNum),'w')
+        for test in exList:
+            accmksp = 0
+            for mksp in test:
+                accmksp += mksp
+            f.write(str(accmksp/4)+'\n')
+        f.close()
+    exeNum += 1
+
+
+# Calculate average Response Times and insert into files
 
 exeNum = 0
 for exList in avgRespTimeList:
     print(exList)
     if exList != []:
         f = open('./results/'+ sys.argv[2] + '_avgRespTime_' + str(exeNum),'w')
-        for i in exList: # exList: list of tests for an exec
+        for test in exList: # exList: list of tests for an exec
             avgRes = 0
-            for ii in i: #i: one test
+            for ii in test: #i: one test
                 for iii in ii: #node
-                    for iiii in iii[:-1]: # slot, last one is doubled
-
+                    for iiii in iii[:-1]: # slot, last one is doubled by lazy coding
                         avgRes += iiii
                 avgRes = avgRes / 100
             f.write(str(avgRes)+'\n')
         f.close()
-        print(exeNum)
     exeNum += 1
-
-print(avgRes)
 
 #avgResp variance:
     
