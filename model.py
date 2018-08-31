@@ -1,5 +1,6 @@
 import numpy
 import sys
+import os
 
 delta = 0.1
 #slowdown = [1,1,1.1,1.6,2.2,2.7,3.2,3.8,4.1,4.6,5.1]
@@ -32,7 +33,7 @@ for yy in range(tests):
     sys.stdout.flush()
     
     # init
-    for ex in range(2,3):
+    for ex in range(2,15):
 
         nmbrOfNodes = 2
         nmbrOfSlots = ex
@@ -106,7 +107,7 @@ for yy in range(tests):
 
         nodes = []
 
-        print(queue)
+        #print(queue)
 
         for i in range(nmbrOfNodes):
             nodes.append([[] for _ in range(nmbrOfSlots)])
@@ -119,7 +120,7 @@ for yy in range(tests):
         for i in range(nmbrOfNodes):
             avgRespTimes.append( [[0] for _ in range(nmbrOfSlots)] )
 
-        print(avgRespTimes)
+        #print(avgRespTimes)
 
         avgmakespan = [0,0,0,0]
 
@@ -233,14 +234,17 @@ for yy in range(tests):
         avgRespTimeList[ex].append(avgRespTimes)
         avgmakespanList[ex].append(avgmakespan)
 
-print(makespanlist)
-print('-------------------\n')
-print(avgRespTimeList)        #avgmakespan[]
-print(avgmakespanList)
+#print(makespanlist)
+#print('-------------------\n')
+#print(avgRespTimeList)        #avgmakespan[]
+#print(avgmakespanList)
 
+#check if results exist
+
+if not os.path.isdir('./results'):   
+    os.makedirs('/.results')
 
 #Calculate makespans and insert into files
-
 exeNum = 0
 for exList in makespanlist:
     if exList != []:
