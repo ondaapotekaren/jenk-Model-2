@@ -2,6 +2,10 @@ import numpy
 import sys
 import os
 
+# First argument is the number of tests for each executor, the other
+# is the scheduling policy used
+
+
 delta = 0.1
 #slowdown = [1,1,1.1,1.6,2.2,2.7,3.2,3.8,4.1,4.6,5.1]
 #slowdown = [1]* 16
@@ -242,7 +246,7 @@ for yy in range(tests):
 #check if results exist
 
 if not os.path.isdir('./results'):   
-    os.makedirs('/.results')
+    os.makedirs('./results')
 
 #Calculate makespans and insert into files
 exeNum = 0
@@ -273,7 +277,6 @@ for exList in avgmakespanList:
 
 exeNum = 0
 for exList in avgRespTimeList:
-    print(exList)
     if exList != []:
         f = open('./results/'+ sys.argv[2] + '_avgRespTime_' + str(exeNum),'w')
         for test in exList: # exList: list of tests for an exec
@@ -297,11 +300,6 @@ for exList in avgRespTimeList:
 #avgRespTime[0] = [2,4,4+delta]
 #avgRespTime[1] = [2,3,5+delta]
 #När vi har den här listan kan vi bara gå igenom båda listorna, addera alla talen in dem och dela på storleken på båda listorna= len(avgRespTime[0]) + len(avgRespTime[1])
-
-
-
-
-
 
 #makespanlist = sorted(makespanlist)
 #print('\n' + str(makespanlist) + '\n')
