@@ -37,7 +37,7 @@ for yy in range(tests):
     sys.stdout.flush()
     
     # init
-    for ex in range(2,15):
+    for ex in range(2,16):
 
         nmbrOfNodes = 2
         nmbrOfSlots = ex
@@ -248,7 +248,7 @@ for yy in range(tests):
 if not os.path.isdir('./results'):   
     os.makedirs('./results')
 
-#Calculate makespans and insert into files
+#Calculate makespans ..     and insert into files
 exeNum = 0
 for exList in makespanlist:
     if exList != []:
