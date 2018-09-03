@@ -26,7 +26,7 @@ avgmakespanList = [[] for _ in range(16)]
 
 #f = open('/repo/ebevikt/masterthesis/paretoBench','r')
 f = open('paretoBench','r')
-f = open('testBench','r')
+#f = open('testBench','r')
 queueception = f.readlines()
 f.close()
 
