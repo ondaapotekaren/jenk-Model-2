@@ -201,8 +201,8 @@ for yy in range(tests):
 
                             #print('\nnodeCounter: ' + str(nodeCounter) + ' '  + 'slotCounter: ' + str(slotCounter)+'\n')
                             #print(str(avgRespTimes[nodeCounter][slotCounter][-1]))
-                            avgRespTimes[nodeCounter][slotCounter][-1] += delta
-
+                            #avgRespTimes[nodeCounter][slotCounter][-1] += delta
+                            avgRespTimes[nodeCounter][slotCounter][-1] += delta/slowdown[heavyjobs]
 
 
 
