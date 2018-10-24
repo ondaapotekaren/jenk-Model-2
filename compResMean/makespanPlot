@@ -1,0 +1,7 @@
+set terminal png
+set output "makespan.png"
+set xrange[2:15]
+set yrange[12000:20000]
+set xlabel "Slots"
+set ylabel "Makespan[sec]"
+plot "LJF_makespans" using 1:2 w linespoints title "LJF", "SJF_makespans" u 1:2 w linespoints title "SJF", "FIFO_makespans" using 1:2 w linespoints title "Random", "LJF-aging_makespans" using 1:2 w linespoints title "LJF-aging", "SJF-aging_makespans" using 1:2 w linespoints title "SJF-aging"

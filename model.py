@@ -5,12 +5,11 @@ import os
 # First argument is the number of tests for each executor, the other
 # is the scheduling policy used
 
-
 delta = 0.1
 #slowdown = [1,1,1.1,1.6,2.2,2.7,3.2,3.8,4.1,4.6,5.1]
 #slowdown = [1]* 16
-threshold = 90000
-#threshold = 350
+#threshold = 90000
+threshold = 350
 slowdown = [1,1]
 for x in range(2,16):
     slowdown.append(0.4*x+1)
@@ -26,6 +25,7 @@ avgmakespanList = [[] for _ in range(16)]
 
 #f = open('/repo/ebevikt/masterthesis/paretoBench','r')
 f = open('paretoBench','r')
+#	f = open('test','r')
 #f = open('testBench','r')
 queueception = f.readlines()
 f.close()
@@ -201,9 +201,10 @@ for yy in range(tests):
 
                             #print('\nnodeCounter: ' + str(nodeCounter) + ' '  + 'slotCounter: ' + str(slotCounter)+'\n')
                             #print(str(avgRespTimes[nodeCounter][slotCounter][-1]))
-                            #avgRespTimes[nodeCounter][slotCounter][-1] += delta
-                            avgRespTimes[nodeCounter][slotCounter][-1] += delta/slowdown[heavyjobs]
-
+                            avgRespTimes[nodeCounter][slotCounter][-1] += delta
+                            #måste nog experimentera lite med detta. 
+			    #avgRespTimes[nodeCounter][slotCounter][-1] += delta/slowdown[heavyjobs]
+			    
 
 
                             if slot[0] <= 0:

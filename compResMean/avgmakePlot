@@ -1,0 +1,7 @@
+set terminal png
+set output "avgMakespan.png"
+set xrange[2:15]
+set yrange[7500:16500]
+set xlabel "Slots"
+set ylabel "Average makespan[sec]"
+plot "LJF_avgMakespan" using 1:2 w linespoints title "LJF", "SJF_avgMakespan" u 1:2 w linespoints title "SJF", "FIFO_avgMakespan" using 1:2 w linespoints title "Random", "LJF-aging_avgMakespan" using 1:2 w linespoints title "LJF-aging", "SJF-aging_avgMakespan" using 1:2 w linespoints title "SJF-aging"

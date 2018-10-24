@@ -1,0 +1,8 @@
+set terminal png
+set output "avgResp.png"
+set xrange[2:15]
+set yrange[0:8000]
+set xlabel "Slots"
+set ylabel "Average responsetime[sec]"
+plot "LJF_avgRespTime" using 1:2 w linespoints title "LJF", "SJF_avgRespTime" u 1:2 w linespoints title "SJF", "FIFO_avgRespTime" using 1:2 w linespoints title "Random", "LJF-aging_avgRespTime" using 1:2 w linespoints title "LJF-aging", "SJF-aging_avgRespTime" using 1:2 w linespoints title "SJF-aging"
+

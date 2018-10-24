@@ -1,25 +1,33 @@
 import sys
 import math
-with open(sys.argv[1]) as f:
-	content = f.readlines() 
-content = [x.strip() for x in content]
-print('\n' + "----Results----" + '\n')
-print("content: " + str(content) + '\n')
 
-mean = 0
-for i in content:
-	mean += float(i)
+def calculate(file):
+	with open(file) as f:
+		content = f.readlines() 
+	content = [x.strip() for x in content]
+	#print('\n' + "----Results----" + '\n')
+	#print("content: " + str(content) + '\n')
 
-mean = mean/len(content)
+	mean = 0
+	for i in content:
+		mean += float(i)
 
-var = 0
-for i in content:
-	var += ((float(i) - mean) ** 2)
+	mean = mean/len(content)
 
-var = var/len(content)
+	var = 0
+	for i in content:
+		var += ((float(i) - mean) ** 2)
 
-std = math.sqrt(var)
+	var = var/len(content)
 
-print("mean: " + str(mean) + '\n')
-print("variance: " + str(var) + '\n')
-print("standard deviation: " + str(std))
+	std = math.sqrt(var)
+
+	res = [mean,var,std]
+
+	#print(res)
+	return res
+	#print("mean: " + str(mean) + '\n')
+	#print("variance: " + str(var) + '\n')
+	#print("standard deviation: " + str(std))
+
+#calculate(sys.argv[1])
